@@ -1,9 +1,20 @@
-import { links } from "$db/links";
-import { ObjectId } from "mongodb";
+import { links } from "$db/links"
+import { ObjectId } from "mongodb"
 
 import type { PageServerLoad } from './$types'
-import { fail } from "@sveltejs/kit";
-import { getMetadata } from "$util/getMetadata";
+import { fail } from "@sveltejs/kit"
+import { getMetadata } from "$util/getMetadata"
+
+export type BookmarkMetadata = {
+  title: string
+  description: string
+  images: string[]
+  sitename: string
+  favicon: string
+  duration: number
+  domain: string
+  url: string
+}
 
 export type Bookmark = {
   _id: string
@@ -11,7 +22,7 @@ export type Bookmark = {
   url: string
   pinned: boolean
   notes: string
-  metadata: any
+  metadata: Partial<BookmarkMetadata>
 }
 
 export const load: PageServerLoad = async function()  {
@@ -27,6 +38,8 @@ export const load: PageServerLoad = async function()  {
       _id: item._id.toString()
     }
   }))
+
+  console.log(bookmarks[1])
 
 	return {
 		bookmarks

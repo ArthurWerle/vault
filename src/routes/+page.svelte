@@ -59,23 +59,33 @@
 <section class="flex flex-col gap-4 p-5 px-0 justify-start overflow-auto">
 	{#each bookmarks as bookmark}
 		<article class="p-4 px-0 flex w-full justify-between">
-			<a href={bookmark.url} title={bookmark.title} target="_blank">	
-				<h2>{bookmark.title}</h2>
-				<h3>{JSON.stringify(bookmark.metadata)}</h3>
+			<a href={bookmark.url} title={bookmark.title} target="_blank">
+				{#if bookmark.metadata?.images?.length}
+					<img src={bookmark.metadata.images[0]} alt={bookmark.metadata?.title || bookmark.title} />
+				{:else if bookmark.metadata?.favicon}
+					<img src={bookmark.metadata.favicon} alt={bookmark.metadata?.title || bookmark.title} />
+				{/if}
+				<!-- <h1>{bookmark.metadata.images[0]}</h1> -->
 			</a>
 			<div class="flex gap-2">
-				<button 
-					on:click={() => {
-						selectedBookmark = bookmark
-						handleToggleEditModal()
-					}} 
-					class="font-bold text-sm hover:brightness-75"
-				>
-					<svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"><path fill="currentColor" d="M5 21q-.825 0-1.412-.587T3 19V5q0-.825.588-1.412T5 3h7v2H5v14h14v-7h2v7q0 .825-.587 1.413T19 21H5Zm4.7-5.3l-1.4-1.4L17.6 5H14V3h7v7h-2V6.4l-9.3 9.3Z"/></svg>
-				</button>
-				<button on:click={() => deleteRegister(bookmark._id)} class="font-bold text-sm hover:brightness-75">
-					<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M7 21q-.825 0-1.412-.587T5 19V6H4V4h5V3h6v1h5v2h-1v13q0 .825-.587 1.413T17 21H7Zm2-4h2V8H9v9Zm4 0h2V8h-2v9Z"/></svg>
-				</button>
+				<div>
+					<h2>{bookmark.metadata?.title || bookmark.title}</h2>
+					<p>{bookmark.metadata?.description || bookmark.notes}</p>
+				</div>
+				<div>
+					<button 
+						on:click={() => {
+							selectedBookmark = bookmark
+							handleToggleEditModal()
+						}} 
+						class="font-bold text-sm hover:brightness-75"
+					>
+						<svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"><path fill="currentColor" d="M5 21q-.825 0-1.412-.587T3 19V5q0-.825.588-1.412T5 3h7v2H5v14h14v-7h2v7q0 .825-.587 1.413T19 21H5Zm4.7-5.3l-1.4-1.4L17.6 5H14V3h7v7h-2V6.4l-9.3 9.3Z"/></svg>
+					</button>
+					<button on:click={() => deleteRegister(bookmark._id)} class="font-bold text-sm hover:brightness-75">
+						<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M7 21q-.825 0-1.412-.587T5 19V6H4V4h5V3h6v1h5v2h-1v13q0 .825-.587 1.413T17 21H7Zm2-4h2V8H9v9Zm4 0h2V8h-2v9Z"/></svg>
+					</button>
+				</div>
 			</div>
 		</article>
 	{/each}
