@@ -1,7 +1,5 @@
 <script>
 	import './styles.css'
-	import { invalidateAll, goto } from '$app/navigation'
-	import { enhance, applyAction } from '$app/forms'
 	import Modal from '../components/Modal.svelte'
 	import Form from '../components/Form.svelte';
 	
