@@ -26,7 +26,7 @@ export type Bookmark = {
 }
 
 export const load: PageServerLoad = async function()  {
-  const data = await links.find().toArray()
+  const data = await links.find().sort({ pinned: 1, date: 1 }).toArray()
 
   const bookmarks = await Promise.all(data.map(async item => {
     const metadata = await getMetadata(item.url)
@@ -48,7 +48,7 @@ export const load: PageServerLoad = async function()  {
 
 /** @type {import('./$types').Actions} */
 export const actions = {
-	add: async (event) => {
+	add: async (event: HTMLFormElement) => {
     const formData = await event.request.formData()
     const url = formData.get('url')
 
@@ -60,6 +60,7 @@ export const actions = {
         title: formData.get('title'),
         notes: formData.get('notes'),
         pinned: formData.get('pinned') ? 1 : 0,
+        date: new Date()
       })
       
       console.log('register added!', result)
@@ -69,7 +70,7 @@ export const actions = {
       return { success: false }
     }
 	},
-	update: async (event) => {
+	update: async (event: HTMLFormElement) => {
     const formData = await event.request.formData()
     console.log('formData', formData)
 

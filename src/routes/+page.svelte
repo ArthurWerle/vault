@@ -59,18 +59,18 @@
 <section class="flex flex-col gap-4 p-5 px-0 justify-start overflow-auto">
 	{#each bookmarks as bookmark}
 		<article>
-			<a href={bookmark.url} title={bookmark.title} target="_blank" class="p-4 px-0 flex w-full justify-between items-center">
+			<a href={bookmark.url} title={bookmark.title} target="_blank" class="flex w-full items-center border border-gray-700 rounded-lg w-full">
 				<div>
 					<img
-						class="w-[220px] rounded-l-lg" 
+						class="w-[120px] rounded-l-lg" 
 						src={bookmark.metadata?.images ? bookmark.metadata?.images[0] : bookmark.metadata?.favicon} 
 						alt={bookmark.metadata?.title || bookmark.title} 
 					/>
 				</div>
-				<div class="flex gap-2 pl-2 border border-l-0 border-gray-700 rounded-r-lg">
+				<div class="flex gap-2 pl-2 justify-between w-full">
 					<div>
 						<h2 class="font-bold text-md mb-2">{bookmark.metadata?.title || bookmark.title}</h2>
-						<p class="text-sm">{bookmark.metadata?.description || bookmark.notes}</p>
+						<p class="text-sm line-clamp-3 max-w-[600px]">{bookmark.metadata?.description || bookmark.notes}</p>
 					</div>
 					<div>
 						<button 
