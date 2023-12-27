@@ -59,20 +59,18 @@
 <section class="flex flex-col gap-4 p-5 px-0 justify-start overflow-auto">
 	{#each bookmarks as bookmark}
 		<article>
-			<a href={bookmark.url} title={bookmark.title} target="_blank" class="flex w-full items-center border border-gray-700 rounded-lg w-full">
-				<div>
-					<img
-						class="w-[120px] rounded-l-lg" 
-						src={bookmark.metadata?.images ? bookmark.metadata?.images[0] : bookmark.metadata?.favicon} 
-						alt={bookmark.metadata?.title || bookmark.title} 
-					/>
-				</div>
-				<div class="flex gap-2 pl-2 justify-between w-full">
+			<a href={bookmark.url} title={bookmark.title} target="_blank" class="flex w-full items-center border border-gray-700 rounded-lg w-full relative hover:border-gray-500">
+        <img
+          class="w-[120px] rounded-l-lg" 
+          src={bookmark.metadata?.images ? bookmark.metadata?.images[0] : bookmark.metadata?.favicon} 
+          alt={bookmark.metadata?.title || bookmark.title} 
+        />
+				<div class="flex gap-2 p-[10px] justify-between w-full">
 					<div>
 						<h2 class="font-bold text-md mb-2">{bookmark.metadata?.title || bookmark.title}</h2>
 						<p class="text-sm line-clamp-3 max-w-[600px]">{bookmark.metadata?.description || bookmark.notes}</p>
 					</div>
-					<div>
+					<div class="flex items-baseline absolute right-[10px] top-[10px]">
 						<button 
 							on:click={() => {
 								selectedBookmark = bookmark
